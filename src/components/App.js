@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import TelaProducts from "./TelaProducts";
 import TelaCart from "./TelaCart";
+import TelaCheckout from "./TelaCheckout";
 
 export default function App(){
 
@@ -12,6 +13,7 @@ export default function App(){
                 <Routes>
                     <Route path="/" element={<TelaProducts />} />
                     <Route path="/cart" element={<TelaCart />} />
+                    <Route path="/checkout" element={<TelaCheckout />} />
                 </Routes>
         </BrowserRouter>
     )

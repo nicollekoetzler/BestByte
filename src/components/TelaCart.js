@@ -6,7 +6,9 @@ export default function TelaCart(){
         <>
             <BackContainer>
                 <Header>
+                    <ion-icon name="person-outline" onClick={() => navigate("/login")}></ion-icon>
                     <img src={ logo } />
+                    <ion-icon name="cart-outline" onClick={() => navigate("/cart")}></ion-icon>
                 </Header>
                 <WhiteContainer>
                     <h1>Seu carrinho de compras</h1>
@@ -50,8 +52,13 @@ const Header = styled.div`
     position: absolute;
     display: flex;
     align-items: center;
-    justify-content: center;
-    
+    justify-content: space-around;
+
+    ion-icon {
+        color: white;
+        height: 28px;
+        width: 28px;
+    }
 `
 
 const WhiteContainer = styled.div`
@@ -69,8 +76,6 @@ h1 {
     font-family: 'Roboto';
     font-weight: bold;
     font-size: 20px;
-    align-items: center;
-    justify-content: center;
     padding-top: 40px;
     padding-bottom: 40px;
 }
