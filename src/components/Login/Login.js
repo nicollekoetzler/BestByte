@@ -1,9 +1,39 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import Cadastro from "../Cadastro/Cadastro";
+import axios from "axios";
 
-export default function Login() {
+export default function Login({setToken}) {
+
+    const navigate = useNavigate();
     const [clicado, setClicado] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function handleForm(e) {
+        e.preventDefault();
+        const dados = {
+            email,
+            password,
+        }
+
+        const promise = axios.post('http://localhost:5000/sign-in', dados);
+
+        promise.then((res) => {
+            setToken(res.data.token);
+            restForm();
+            navigate('');
+        })
+        promise.catch((err) => {
+            alert('Não foi possível entar, verifique seus dados!')
+        })
+
+        function restForm() {
+            setEmail('');
+            setPassword('');
+        }
+    }
 
     function registro() {
         if(!clicado) {
@@ -11,12 +41,14 @@ export default function Login() {
                 <PageaLoginComponents>
                     <img src="../image/logo.png"/>
                     <CashierComponents>
-                        <form>
+                        <form onSubmit={handleForm}>
                             <label>
                                 Nome ou endereço de email
                                 <input 
                                     id="formEmail" 
                                     type="email" 
+                                    onChange={(e) => {setEmail(e.target.value)}}
+                                    value={email}
                                     required
                                 />
                             </label>
@@ -25,6 +57,8 @@ export default function Login() {
                                 <input  
                                     id="forSenha" 
                                     type="password"
+                                    onChange={(e) => {setPassword(e.target.value)}}
+                                    value={password}
                                     required
                                 />
                             </label>
@@ -54,7 +88,7 @@ export default function Login() {
 
 const PageaLoginComponents = styled.div`
     width: 100%;
-    height: 667px;
+    height: 100vh;
     background-color: #212121;
     font-family: 'Roboto';
     color: white;
@@ -87,6 +121,8 @@ const PageaLoginComponents = styled.div`
         border: 1px solid #0F9C18;
         border-radius: 8px;
         background-color: #272727;
+        color: white;
+        padding-left: 15px;
 
         margin: 15px 0;
     }
