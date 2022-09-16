@@ -2,7 +2,11 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 
+<<<<<<< HEAD
 import logo from "../assets/imgs/logo.png"
+=======
+import logo from "../assets/imgs/logo.bestbyte.svg"
+>>>>>>> 60b70823bf071cfbf00f0901d8ec4f3722dc9bca
 
 export default function TelaProducts(){
     return(
