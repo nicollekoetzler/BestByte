@@ -10,8 +10,8 @@ export default function App(){
     return(
         <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Login />} />
-                    {/* <Route path="/" element={<TelaProducts />} /> */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/" element={<TelaProducts />} />
                 </Routes>
         </BrowserRouter>
     )
