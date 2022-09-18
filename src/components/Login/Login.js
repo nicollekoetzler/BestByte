@@ -4,7 +4,7 @@ import { useState } from "react";
 import Cadastro from "../Cadastro/Cadastro";
 import axios from "axios";
 
-export default function Login({setToken}) {
+export default function Login({setToken, token}) {
 
     const navigate = useNavigate();
     const [clicado, setClicado] = useState(false);
@@ -23,7 +23,8 @@ export default function Login({setToken}) {
         promise.then((res) => {
             setToken(res.data.token);
             restForm();
-            navigate('');
+            navigate('/');
+            console.log(token)
         })
         promise.catch((err) => {
             alert('Não foi possível entar, verifique seus dados!')

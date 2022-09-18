@@ -12,7 +12,7 @@ export default function App(){
     return(
         <BrowserRouter>
                 <Routes>
-                    <Route path="/login" element={<Login setToken={setToken}/>} />
+                    <Route path="/login" element={<Login setToken={setToken} token={token}/>} />
                     <Route path="/" element={<TelaProducts token={token}/>} />
                 </Routes>
         </BrowserRouter>

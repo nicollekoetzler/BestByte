@@ -6,13 +6,14 @@ import axios from "axios"
 
 import logo from "../assets/imgs/logo.png"
 
-export default function TelaProducts(){
+export default function TelaProducts({token}){
     const [ products, setProducts ] = useState([])
+    console.log(token)
     return(
         <ScreenProcuts>
             <Cabecalho />
             <SubTitulo />
-            <Produtos products={products} setProducts={setProducts}/>
+            <Produtos products={products} setProducts={setProducts} token={token}/>
         </ScreenProcuts>
 
     )
@@ -44,7 +45,7 @@ function SubTitulo(){
     )
 }
 
-function Produtos({products, setProducts}){
+function Produtos({products, setProducts, token}){
     useEffect(() => {
         const url = "http://localhost:5000/products"
         const promise = axios.get(url)
@@ -60,17 +61,35 @@ function Produtos({products, setProducts}){
     return(
         <>
                 <ListProducts>
-                    {products.map((product) => <Products image={product.image} name={product.name} price={product.price} key={product._id} />)}
+                    {products.map((product) => <Products image={product.image} name={product.name} price={product.price} key={product._id} token={token}/>)}
                 </ListProducts>
         </>
     )
     
 }
 
-function Products({image, name, price}){
-    console.log(image)
-    console.log(name)
-    console.log(price)
+function Products({image, name, price, token}){
+
+    function addCarrinho(){
+            const url = "http://localhost:5000/cart"
+            const config = {
+                headers:{
+                    Authorization: token
+                }
+            }
+            const promise = axios.post(url, {
+                image: image,
+                name: name,
+                price: price
+            }, config)
+            promise.then( response => {
+                console.log('then test')
+                const {data} = response
+                console.log(data)
+            })
+            promise.catch(console.log('catch test'))
+        }
+        console.log(token)
     return(
         <Product>
             <Image>
@@ -79,16 +98,12 @@ function Products({image, name, price}){
             <Infos>
                 <h1>{name}</h1>
                 <h2>R$ {price.toFixed(2)}</h2>
-                <button>Adcionar ao carrinho</button>
+                <button onClick={() => addCarrinho()}>Adcionar ao carrinho</button>
             </Infos>
         </Product>
     )
 }
 
-// function AddCarrinho(){
-//     const url = "http://localhost:5000/cart"
-    
-// }
 
 
 
@@ -96,7 +111,7 @@ const ScreenProcuts = styled.div`
     background-color: #212121;
 
     width: 100%;
-    height: 100vh;
+    height: 100%;
     padding: 12px;
 `
 
@@ -147,11 +162,11 @@ const ListProducts = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     width: 100%;
-    height: 80%;
     gap: 12px;
-    position: relative;
+    margin-top: 20px;
 
 `
 
@@ -167,8 +182,6 @@ const Product = styled.div`
     height: 150px;
     padding: 12px;
     gap: 8px;
-    position: absolute;
-
     
     `
 
