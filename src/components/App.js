@@ -11,6 +11,7 @@ import TelaCheckout from "./TelaCheckout";
 import UserContext from "../contexts/usercontexts.js"
 
 export default function App(){
+    const [token, setToken] = useState('');
 
     const [userData, setUserData] = useState({})
 
@@ -18,10 +19,10 @@ export default function App(){
         <BrowserRouter>
             <UserContext.Provider value = {{ userData, setUserData }}>
                 <Routes>
-                    <Route path="/" element={<TelaProducts />} />
                     <Route path="/cart" element={<TelaCart />} />
                     <Route path="/checkout" element={<TelaCheckout />} />
-                    <Route path="/" element={<Login />} />
+                    <Route path="/sign-in" element={<Login setToken={setToken}/>} />
+                    <Route path="/" element={<TelaProducts token={token}/>} />
                 </Routes>
             </UserContext.Provider>
         </BrowserRouter>
