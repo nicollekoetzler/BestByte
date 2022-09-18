@@ -3,8 +3,7 @@ import "../assets/css/style.css";
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from "./Login/Login";
 import { useState } from "react";
-
-import TelaProducts from "./TelaProducts";
+import Checkout from "../checkout/Checkout";
 
 export default function App(){
     const [token, setToken] = useState('');
@@ -13,7 +12,7 @@ export default function App(){
         <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Login setToken={setToken}/>} />
-                    <Route path="/" element={<TelaProducts token={token}/>} />
+                    <Route path="/checkout" element={<Checkout />}/>
                 </Routes>
         </BrowserRouter>
     )

@@ -23,7 +23,7 @@ export default function Login({setToken}) {
         promise.then((res) => {
             setToken(res.data.token);
             restForm();
-            navigate('');
+            navigate('/checkout');
         })
         promise.catch((err) => {
             alert('Não foi possível entar, verifique seus dados!')

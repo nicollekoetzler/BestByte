@@ -20,6 +20,9 @@ export default function Cadastro({PageaLoginComponents, setClicado}) {
 
         promise.then((res) => {
             restForm();
+        });
+        promise.catch((err) => {
+            alert("Esse endereço de email já está cadastrado!")
         })
     }
 
