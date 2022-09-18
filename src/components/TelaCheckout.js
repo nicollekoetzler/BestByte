@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import logo from "../assets/imgs/logo.png"
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function TelaCheckout(){
+
+    const navigate = useNavigate()
+
     return(
         <>
             <Container>

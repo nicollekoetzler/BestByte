@@ -1,7 +1,34 @@
 import styled from 'styled-components';
 import logo from "../assets/imgs/logo.png"
+import axios from 'axios'
+import { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import UserContext from "../contexts/usercontexts.js"
+
 
 export default function TelaCart(){
+
+    const URL = "http://localhost:5000/cart";
+    const navigate = useNavigate()
+
+    const { userData, setUserData } = useContext(UserContext);
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userData.token}`
+            }
+        }
+
+        const promise = axios.get(URL, config)
+
+        promise.then( res => {
+            
+            
+        })
+
+    },[])
+
     return(
         <>
             <BackContainer>
@@ -11,6 +38,7 @@ export default function TelaCart(){
                     <ion-icon name="cart-outline" onClick={() => navigate("/cart")}></ion-icon>
                 </Header>
                 <WhiteContainer>
+                    <h1>Olá, {userData.name}!</h1>
                     <h1>Seu carrinho de compras</h1>
                     <ProductContainer>
                         <ImageContainer></ImageContainer>
