@@ -1,15 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Cadastro from "../Cadastro/Cadastro";
 import axios from "axios";
+import UserContext from "../../contexts/usercontexts";
 
 export default function Login({setToken}) {
+
+    const { userData, setUserData } = useContext(UserContext)
 
     const navigate = useNavigate();
     const [clicado, setClicado] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+
 
     function handleForm(e) {
         e.preventDefault();
@@ -23,6 +28,7 @@ export default function Login({setToken}) {
         promise.then((res) => {
             setToken(res.data.token);
             restForm();
+            setUserData(res.data);
             navigate('');
         })
         promise.catch((err) => {
