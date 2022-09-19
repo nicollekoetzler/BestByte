@@ -23,13 +23,11 @@ export default function TelaProducts({token}){
 function Cabecalho(){
     const navigate = useNavigate()
     return(
-        <>
-            <Header>
-                <ion-icon name="person-outline" onClick={() => navigate("/sign-in")}></ion-icon>
-                <img src={logo} alt="logo BestByte" />
-                <ion-icon name="cart-outline" onClick={() => navigate("/cart")}></ion-icon>
-            </Header>
-        </>
+        <Header>
+            <ion-icon name="person-outline" onClick={() => navigate("/sign-in")}></ion-icon>
+            <img src={logo} alt="logo BestByte" />
+            <ion-icon name="cart-outline" onClick={() => navigate("/cart")}></ion-icon>
+        </Header>
 
     )
 }
@@ -125,15 +123,13 @@ const Header = styled.div `
     align-items: center;
 
     width: 100%;
+    height: 80px;
     position: fixed;
+    top: 0;
 
-    img{
-        width: 200px;
-    }
-
-    ion-icons{
+    ion-icon{
         width: 24px;
-        height: 24px;
+        height: 30px;
     }
 
 `

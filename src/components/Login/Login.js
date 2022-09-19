@@ -1,15 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Cadastro from "../Cadastro/Cadastro";
 import axios from "axios";
+import UserContext from "../../contexts/usercontexts";
 
 export default function Login({setToken, token}) {
+
+    const { userData, setUserData } = useContext(UserContext)
 
     const navigate = useNavigate();
     const [clicado, setClicado] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+
 
     function handleForm(e) {
         e.preventDefault();
@@ -23,8 +28,8 @@ export default function Login({setToken, token}) {
         promise.then((res) => {
             setToken(res.data.token);
             restForm();
+            setUserData(res.data);
             navigate('/');
-            console.log(token)
         })
         promise.catch((err) => {
             alert('Não foi possível entar, verifique seus dados!')
@@ -40,7 +45,7 @@ export default function Login({setToken, token}) {
         if(!clicado) {
             return (
                 <PageaLoginComponents>
-                    <img src="../image/logo.png"/>
+                    <img src="../image/logo.png" onClick={() => navigate("/")}/>
                     <CashierComponents>
                         <form onSubmit={handleForm}>
                             <label>
@@ -101,6 +106,8 @@ const PageaLoginComponents = styled.div`
 
     img {
         width: 200px;
+
+        cursor: pointer;
     }
 
     form {
