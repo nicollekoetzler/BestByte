@@ -241,6 +241,7 @@ const Infos = styled.div`
     
     width: 200px;
     height: 20px;
+    
     cursor: pointer;
     }
     `
