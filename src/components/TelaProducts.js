@@ -25,7 +25,7 @@ function Cabecalho(){
     return(
         <>
             <Header>
-                <ion-icon name="person-outline" onClick={() => navigate("/login")}></ion-icon>
+                <ion-icon name="person-outline" onClick={() => navigate("/sign-in")}></ion-icon>
                 <img src={logo} alt="logo BestByte" />
                 <ion-icon name="cart-outline" onClick={() => navigate("/cart")}></ion-icon>
             </Header>
