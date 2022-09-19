@@ -52,8 +52,8 @@ function Produtos({products, setProducts, token}){
             setProducts(data)
         })
         
-        promise.catch( (err) => {
-            console.log(`Erro ${err.response.status}, ${err.data.message}`)
+        promise.catch ((err) => {
+            console.log(`Erro ${err.response.status}, ${err.data}`)
         })
     }, [])
     console.log(products)
