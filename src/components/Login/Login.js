@@ -69,6 +69,7 @@ export default function Login({setToken, token}) {
                                 />
                             </label>
                             <button>Entrar</button>
+                            <p onClick={() => navigate("/")}>Voltar para a tela inicial</p>
                         </form>
                         <p onClick={() => {
                                 setClicado(true);
@@ -140,6 +141,7 @@ const PageaLoginComponents = styled.div`
         background-color: #0F9C18;
         border: 0;
         border-radius: 8px;
+        margin-bottom: 15px;
 
         color: white;
         font-family: 'Roboto';
@@ -152,6 +154,7 @@ const PageaLoginComponents = styled.div`
     p {
         color: white;
         font-size: 12px;
+        margin-bottom: 5px;
 
         display: flex;
         justify-content: center;
@@ -166,7 +169,7 @@ const PageaLoginComponents = styled.div`
 `
 const CashierComponents = styled.div`
     width: 85%;
-    height: 260px;
+    height: 280px;
     background-color: #2a2a2a;
     margin-top: 50px;
 

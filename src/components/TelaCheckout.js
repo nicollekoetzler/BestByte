@@ -58,7 +58,7 @@ export default function TelaCheckout(){
                             <h3>Total:</h3>
                             <h4>R$1.189,90</h4>
                         </Value>
-                        <button>Comprar</button>
+                        <button onClick={() => navigate("/success")}>Comprar</button>
                     </form>
                 </Purchase>
             </Container>
