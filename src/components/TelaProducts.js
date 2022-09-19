@@ -23,11 +23,11 @@ export default function TelaProducts({token}){
 function Cabecalho(){
     const navigate = useNavigate()
     return(
-        <header>
+        <Header>
             <ion-icon name="person-outline" onClick={() => navigate("/sign-in")}></ion-icon>
             <img src={logo} alt="logo BestByte" />
             <ion-icon name="cart-outline" onClick={() => navigate("/cart")}></ion-icon>
-        </header>
+        </Header>
 
     )
 }
@@ -51,7 +51,8 @@ function Produtos({products, setProducts, token}){
             const {data} = response
             setProducts(data)
         })
-        promise.catch( err => {
+        
+        promise.catch( (err) => {
             console.log(`Erro ${err.response.status}, ${err.data.message}`)
         })
     }, [])
@@ -122,16 +123,13 @@ const Header = styled.div `
     align-items: center;
 
     width: 100%;
+    height: 80px;
     position: fixed;
+    top: 0;
 
-    img {
-        width: 50px;
-        height: 50px;
-    }
-
-    ion-icons{
+    ion-icon{
         width: 24px;
-        height: 24px;
+        height: 30px;
     }
 
 `
@@ -143,6 +141,7 @@ const SubTitle = styled.div`
     
     margin-top: 70px;
     gap: 5px;
+    /* position: relative; */
 
     p{
         color: #008a9e;
