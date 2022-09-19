@@ -2,12 +2,10 @@ import "../assets/css/reset.css";
 import "../assets/css/style.css";
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from "./Login/Login";
-import { useState } from 'react'
-
-import TelaProducts from "./TelaProducts";
+import { useState } from 'react';
 import TelaCart from "./TelaCart";
 import TelaCheckout from "./TelaCheckout";
-
+import TelaProducts from "./TelaProducts";
 import UserContext from "../contexts/usercontexts.js"
 
 export default function App(){
@@ -19,10 +17,10 @@ export default function App(){
         <BrowserRouter>
             <UserContext.Provider value = {{ userData, setUserData }}>
                 <Routes>
+                    <Route path="/" element={<TelaProducts token={token}/>} />
                     <Route path="/cart" element={<TelaCart />} />
                     <Route path="/checkout" element={<TelaCheckout />} />
                     <Route path="/sign-in" element={<Login setToken={setToken}/>} />
-                    <Route path="/" element={<TelaProducts token={token}/>} />
                 </Routes>
             </UserContext.Provider>
         </BrowserRouter>

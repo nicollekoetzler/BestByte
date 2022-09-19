@@ -10,7 +10,7 @@ export default function TelaCheckout(){
         <>
             <Container>
                 <Header>
-                    <ion-icon name="person-outline" onClick={() => navigate("/login")}></ion-icon>
+                    <ion-icon name="person-outline" onClick={() => navigate("/sign-in")}></ion-icon>
                     <img src={ logo } />
                     <ion-icon name="cart-outline" onClick={() => navigate("/cart")}></ion-icon>
                 </Header>
@@ -22,13 +22,37 @@ export default function TelaCheckout(){
                 <Purchase>
                     <h1>Finalizar compra</h1>
                     <form>
+                    <label>
+                            Nome Completo
+                            <input 
+                                id="formName" 
+                                type="text" 
+                                required
+                            />
+                        </label>
                         <label>
                             Endereço
-                            <input type="text"/>
+                            <input  
+                                id="formEndereco" 
+                                type="text"
+                                required
+                            />
+                        </label>
+                        <label>
+                            CPF
+                            <input  
+                                id="formCPF" 
+                                type="number"
+                                required
+                            />
                         </label>
                         <label>
                             Dados do cartão
-                            <input type="number"/>
+                            <input  
+                                id="formCartao" 
+                                type="number"
+                                required
+                            />
                         </label>
                         <Value>
                             <h3>Total:</h3>
@@ -62,6 +86,8 @@ const Header = styled.div`
         color: white;
         height: 28px;
         width: 28px;
+
+        cursor: pointer;
     }
 `
 
@@ -94,7 +120,7 @@ const PurchaseInfo = styled.div`
 
 const Purchase = styled.div`
     width: 85%;
-    height: 320px;
+    height: 100%;
     background-color: #2a2a2a;
     margin-top: 50px;
 
@@ -113,6 +139,7 @@ const Purchase = styled.div`
         font-family: 'Roboto';
         font-weight: bold;
         font-size: 20px;
+        padding:  20px 0;
     }
 
     form {
@@ -145,6 +172,7 @@ const Purchase = styled.div`
         background-color: #0F9C18;
         border: none;
         border-radius: 28px;
+        margin:  20px 0;
 
         color: white;
         font-family: 'Roboto';
