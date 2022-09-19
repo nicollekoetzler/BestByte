@@ -130,6 +130,7 @@ const Header = styled.div `
     ion-icon{
         width: 24px;
         height: 30px;
+        cursor: pointer;
     }
 
 `
