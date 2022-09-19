@@ -85,6 +85,7 @@ function Products({image, name, price, token}){
                 console.log('then test')
                 const {data} = response
                 console.log(data)
+                alert("Produto adcionado ao carrinho")
             })
             promise.catch(console.log('catch test'))
         }
@@ -236,7 +237,9 @@ const Infos = styled.div`
     justify-content: center;
     align-items: center;
     
-        width: 200px;
-        height: 20px;
+    width: 200px;
+    height: 20px;
+    
+    cursor: pointer;
     }
     `
