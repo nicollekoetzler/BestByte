@@ -5,7 +5,7 @@ import Cadastro from "../Cadastro/Cadastro";
 import axios from "axios";
 import UserContext from "../../contexts/usercontexts";
 
-export default function Login({setToken}) {
+export default function Login({setToken, token}) {
 
     const { userData, setUserData } = useContext(UserContext)
 
@@ -29,7 +29,7 @@ export default function Login({setToken}) {
             setToken(res.data.token);
             restForm();
             setUserData(res.data);
-            navigate('/cart');
+            navigate('/');
         })
         promise.catch((err) => {
             alert('Não foi possível entar, verifique seus dados!')
@@ -45,7 +45,7 @@ export default function Login({setToken}) {
         if(!clicado) {
             return (
                 <PageaLoginComponents>
-                    <img src="../image/logo.png"/>
+                    <img src="../image/logo.png" onClick={() => navigate("/")}/>
                     <CashierComponents>
                         <form onSubmit={handleForm}>
                             <label>
@@ -106,6 +106,8 @@ const PageaLoginComponents = styled.div`
 
     img {
         width: 200px;
+
+        cursor: pointer;
     }
 
     form {

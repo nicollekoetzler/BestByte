@@ -37,7 +37,7 @@ export default function TelaCart(){
         <>
             <BackContainer>
                 <Header>
-                    <ion-icon name="person-outline" onClick={() => navigate("/login")}></ion-icon>
+                    <ion-icon name="person-outline" onClick={() => navigate("/sign-in")}></ion-icon>
                     <img src={ logo } />
                     <ion-icon name="cart-outline" onClick={() => navigate("/cart")}></ion-icon>
                 </Header>
@@ -65,7 +65,7 @@ export default function TelaCart(){
                         <h3>Total:</h3>
                         <h3>R$2.379,80</h3>
                     </Total>
-                    <button>
+                    <button onClick={() => navigate("/checkout")}>
                         <p>Ir para o pagamento</p>
                     </button>
                 </WhiteContainer>
@@ -93,6 +93,8 @@ const Header = styled.div`
         color: white;
         height: 28px;
         width: 28px;
+
+        cursor: pointer;
     }
 `
 
@@ -130,6 +132,8 @@ button {
     font-weight: bold;
     margin-bottom: 50px;
     border: none;
+
+    cursor: pointer;
 }
 `
 
