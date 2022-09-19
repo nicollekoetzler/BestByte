@@ -5,7 +5,7 @@ import Cadastro from "../Cadastro/Cadastro";
 import axios from "axios";
 import UserContext from "../../contexts/usercontexts";
 
-export default function Login({setToken}) {
+export default function Login({setToken, token}) {
 
     const { userData, setUserData } = useContext(UserContext)
 
