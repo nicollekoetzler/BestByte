@@ -29,7 +29,7 @@ export default function Login({setToken}) {
             setToken(res.data.token);
             restForm();
             setUserData(res.data);
-            navigate('');
+            navigate('/cart');
         })
         promise.catch((err) => {
             alert('Não foi possível entar, verifique seus dados!')

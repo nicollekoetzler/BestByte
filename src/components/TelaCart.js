@@ -9,22 +9,26 @@ import UserContext from "../contexts/usercontexts.js"
 export default function TelaCart(){
 
     const URL = "http://localhost:5000/cart";
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const { userData, setUserData } = useContext(UserContext);
+
+    const [ userName, setUserName ] = useState();
+    const [ productsInfo, setProductsInfo ] = useState([]);
 
     useEffect(() => {
         const config = {
             headers: {
-                Authorization: `Bearer ${userData.token}`
+                Authorization: `Bearer ${userData}`
             }
         }
 
         const promise = axios.get(URL, config)
-
+    
         promise.then( res => {
-            
-            
+            setUserName(res.data.name)
+            setProductsInfo(res.data.products)
+            console.log(res.data)
         })
 
     },[])
@@ -38,22 +42,25 @@ export default function TelaCart(){
                     <ion-icon name="cart-outline" onClick={() => navigate("/cart")}></ion-icon>
                 </Header>
                 <WhiteContainer>
-                    <h1>Olá, {userData.name}!</h1>
-                    <h1>Seu carrinho de compras</h1>
-                    <ProductContainer>
-                        <ImageContainer></ImageContainer>
-                        <DescriptionContainer>
-                            <p>Processador Intel Core i5-10400, 2.9GHZ</p>
-                            <h3>R$1.189,90</h3>
-                        </DescriptionContainer>
-                    </ProductContainer>
-                    <ProductContainer>
-                        <ImageContainer></ImageContainer>
-                        <DescriptionContainer>
-                            <p>Processador Intel Core i5-10400, 2.9GHZ</p>
-                            <h3>R$1.189,90</h3>
-                        </DescriptionContainer>
-                    </ProductContainer>
+                    <h1>Seu carrinho de compras, {userName}!</h1>
+                    { 
+                        productsInfo.length > 0 
+                        ?
+                        productsInfo.map( product => {
+                            return(
+                                <ProductContainer>
+                                    <ImageContainer><img src={product.image} alt={ product.name }/></ImageContainer>
+                                    <DescriptionContainer>
+                                        <p>{ product.name }</p>
+                                        <h3>{ product.price }</h3>
+                                    </DescriptionContainer>
+                                </ProductContainer>
+                            )
+                        })
+                        :
+                        <h2>{userName}, seu carrinho está vazio :(</h2>
+                    }
+
                     <Total>
                         <h3>Total:</h3>
                         <h3>R$2.379,80</h3>
