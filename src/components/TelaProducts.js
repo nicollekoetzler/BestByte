@@ -45,7 +45,7 @@ function SubTitulo(){
 
 function Produtos({products, setProducts, token}){
     useEffect(() => {
-        const url = "http://localhost:5000/products"
+        const url = "https://back-bestbyte.herokuapp.com/products"
         const promise = axios.get(url)
         promise.then(response => {
             const {data} = response
@@ -70,7 +70,7 @@ function Produtos({products, setProducts, token}){
 function Products({image, name, price, token}){
 
     function addCarrinho(){
-            const url = "http://localhost:5000/cart"
+            const url = "https://back-bestbyte.herokuapp.com/cart"
             const config = {
                 headers:{
                     Authorization: token

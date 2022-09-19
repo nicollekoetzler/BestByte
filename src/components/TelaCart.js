@@ -8,7 +8,7 @@ import UserContext from "../contexts/usercontexts.js"
 
 export default function TelaCart(){
 
-    const URL = "http://localhost:5000/cart";
+    const URL = "https://back-bestbyte.herokuapp.com/cart";
     const navigate = useNavigate();
 
     const { userData, setUserData } = useContext(UserContext);

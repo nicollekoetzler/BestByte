@@ -23,7 +23,7 @@ export default function Login({setToken, token}) {
             password,
         }
 
-        const promise = axios.post('http://localhost:5000/sign-in', dados);
+        const promise = axios.post('https://back-bestbyte.herokuapp.com/sign-in', dados);
 
         promise.then((res) => {
             setToken(res.data.token);
