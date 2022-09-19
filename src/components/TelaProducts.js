@@ -53,7 +53,8 @@ function Produtos({products, setProducts, token}){
             const {data} = response
             setProducts(data)
         })
-        promise.catch( err => {
+        
+        promise.catch( (err) => {
             console.log(`Erro ${err.response.status}, ${err.data.message}`)
         })
     }, [])
@@ -144,7 +145,7 @@ const SubTitle = styled.div`
     
     margin-top: 70px;
     gap: 5px;
-    position: relative;
+    /* position: relative; */
 
     p{
         color: #008a9e;
