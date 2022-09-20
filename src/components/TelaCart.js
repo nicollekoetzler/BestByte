@@ -6,15 +6,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import UserContext from "../contexts/usercontexts.js"
 
 
+
 export default function TelaCart(){
 
-    const URL = "http://localhost:5000/cart";
+    const URL = "https://back-bestbyte.herokuapp.com/cart";
     const navigate = useNavigate();
 
     const { userData, setUserData } = useContext(UserContext);
 
     const [ userName, setUserName ] = useState();
     const [ productsInfo, setProductsInfo ] = useState([]);
+
+    const [ valorTotal, setValorTotal] = useState(0);
 
     useEffect(() => {
         const config = {
@@ -28,18 +31,30 @@ export default function TelaCart(){
         promise.then( res => {
             setUserName(res.data.name)
             setProductsInfo(res.data.products)
-            console.log(res.data)
+            setValorTotal(calculaValorTotal(res.data.products))
         })
 
     },[])
+
+    function calculaValorTotal(products){
+        let total = 0
+        for( let i = 0; i < products.length ;i++ ){
+            total += Number(products[i].price)
+        }
+        return total
+    }
 
     return(
         <>
             <BackContainer>
                 <Header>
-                    <ion-icon name="person-outline" onClick={() => navigate("/sign-in")}></ion-icon>
-                    <img src={ logo } />
-                    <ion-icon name="cart-outline" onClick={() => navigate("/cart")}></ion-icon>
+                    <Link to='/sign-in'>
+                        <ion-icon name="person-outline" onClick={() => navigate("/sign-in")}></ion-icon>
+                    </Link>
+                    <Link to='/'>
+                        <img src={ logo } />
+                    </Link>
+                        <ion-icon name="cart-outline" onClick={() => navigate("/cart")}></ion-icon>
                 </Header>
                 <WhiteContainer>
                     <h1>Seu carrinho de compras, {userName}!</h1>
@@ -52,18 +67,18 @@ export default function TelaCart(){
                                     <ImageContainer><img src={product.image} alt={ product.name }/></ImageContainer>
                                     <DescriptionContainer>
                                         <p>{ product.name }</p>
-                                        <h3>{ product.price }</h3>
+                                        <h3>R$ { Number(product.price).toFixed(2) }</h3>
                                     </DescriptionContainer>
                                 </ProductContainer>
                             )
                         })
                         :
-                        <h2>{userName}, seu carrinho está vazio :(</h2>
+                        <h2>Seu carrinho está vazio :(</h2>
                     }
 
                     <Total>
                         <h3>Total:</h3>
-                        <h3>R$2.379,80</h3>
+                        <h3>R$ { valorTotal.toFixed(2)}</h3>
                     </Total>
                     <button onClick={() => navigate("/checkout")}>
                         <p>Ir para o pagamento</p>
@@ -78,16 +93,15 @@ const BackContainer = styled.div`
     min-height: 100vh;
     width: 100vw;
     background-color: #212121;
-    position: relative;
 `
 
 const Header = styled.div`
     width: 100%;
     height: 12%;
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    padding: 14px 0px 10px 0px;
 
     ion-icon {
         color: white;
@@ -100,10 +114,8 @@ const Header = styled.div`
 
 const WhiteContainer = styled.div`
     width: 100%;
-    height: 88%;
+    min-height: 88%;
     background-color: #eaeaea;
-    position: absolute;
-    bottom: 0;
     border-radius: 34px 34px 0px 0px;
     display: flex;
     align-items: center;
@@ -117,12 +129,19 @@ h1 {
     padding-bottom: 40px;
 }
 
+h2 {
+    font-family: 'Roboto';
+    color: gray;
+    font-weight: 500;
+    font-size: 16px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
 button {
     background-color: #009e2a;
     height: 60px;
     width: 88%;
-    position: absolute;
-    bottom: 0;
     border-radius: 28px;
     display: flex;
     justify-content: center;
@@ -155,6 +174,16 @@ const ImageContainer = styled.div`
     min-width: 136px;
     width: 136px;
     border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+
+    img {
+        background-color: #eaeaea;
+        max-height: 100%;
+        max-width: 100%;
+    }
 `
 
 const DescriptionContainer = styled.div`
@@ -177,13 +206,11 @@ const Total = styled.div`
     width: 88%;
     display: flex;
     justify-content: space-between;
-    position: absolute;
-    bottom: 0;
-    padding-bottom: 132px;
+    padding: 12px 0 22px 0;
 
     h3 {
         font-family: 'Roboto';
-        font-size: 24px;
+        font-size: 22px;
         font-weight: bold;
     }
 `

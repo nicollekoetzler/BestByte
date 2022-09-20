@@ -16,7 +16,7 @@ export default function Cadastro({PageaLoginComponents, setClicado}) {
             password,
             repeat_password: confirmPassword
         };
-        const promise = axios.post('http://localhost:5000/sign-up', dadosDeCadastro);
+        const promise = axios.post('https://back-bestbyte.herokuapp.com/sign-up', dadosDeCadastro);
 
         promise.then((res) => {
             restForm();

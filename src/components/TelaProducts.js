@@ -1,20 +1,22 @@
 import { useNavigate } from "react-router-dom" 
 import styled from "styled-components"
-import { useContext, useEffect, useState } from "react"
-import UserContext from "../contexts/usercontexts"
+import { useEffect, useState, useContext } from "react"
 import axios from "axios"
+import userContext from "../contexts/usercontexts"
 
 
 import logo from "../assets/imgs/logo.png"
 
-export default function TelaProducts({token}){
+export default function TelaProducts(){
+
+    const { userData, setUserData } = useContext(userContext)
+
     const [ products, setProducts ] = useState([])
-    console.log(token)
     return(
         <ScreenProcuts>
             <Cabecalho />
             <SubTitulo />
-            <Produtos products={products} setProducts={setProducts} token={token}/>
+            <Produtos products={products} setProducts={setProducts} token={userData}/>
         </ScreenProcuts>
 
     )
@@ -46,15 +48,15 @@ function SubTitulo(){
 
 function Produtos({products, setProducts, token}){
     useEffect(() => {
-        const url = "http://localhost:5000/products"
+        const url = "https://back-bestbyte.herokuapp.com/products"
         const promise = axios.get(url)
         promise.then(response => {
             const {data} = response
             setProducts(data)
         })
         
-        promise.catch ((err) => {
-            console.log(`Erro ${err.response.status}, ${err.data}`)
+        promise.catch( (err) => {
+            console.log(`Erro ${err.response.status}, ${err.data.message}`)
         })
     }, [])
     console.log(products)
@@ -68,15 +70,14 @@ function Produtos({products, setProducts, token}){
     
 }
 
-function Products({image, name, price}){
-    
-    const {userData, setUserData} = useContext(UserContext)
+function Products({image, name, price, token}){
+
 
     function addCarrinho(){
-            const url = "http://localhost:5000/cart"
+            const url = "https://back-bestbyte.herokuapp.com/cart"
             const config = {
                 headers:{
-                    Authorization: `Bearer ${userData}`
+                    Authorization: token
                 }
             }
             const promise = axios.post(url, {
@@ -88,10 +89,10 @@ function Products({image, name, price}){
                 console.log('then test')
                 const {data} = response
                 console.log(data)
-                alert("Produto adcionado ao carrinho!")
             })
             promise.catch(console.log('catch test'))
         }
+        console.log(token)
     return(
         <Product>
             <Image>
@@ -107,19 +108,16 @@ function Products({image, name, price}){
 }
 
 
-
-
 const ScreenProcuts = styled.div`
     background-color: #212121;
 
     width: 100%;
-    height: 100%;
-    padding: 12px;
+    min-height: 100vh;
 `
 
 const Header = styled.div `
     background-color: #212121;
-    color: #FFFFFF;
+    color: white;
     
     display: flex;
     justify-content: space-around;
@@ -127,8 +125,6 @@ const Header = styled.div `
 
     width: 100%;
     height: 80px;
-    position: fixed;
-    top: 0;
 
     ion-icon{
         width: 24px;
@@ -138,24 +134,25 @@ const Header = styled.div `
 
 `
 
-
 const SubTitle = styled.div`
     display: flex;
     flex-direction: column;
     
-    margin-top: 70px;
+    margin-top: 10px;
+    padding-left: 22px;
     gap: 5px;
     /* position: relative; */
 
     p{
         color: #008a9e;
         font-family: 'Roboto';
-        font-size: 12px;
+        font-size: 14px;
     }
     h1{
-        color: #FFFFFF;
+        color: white;
         font-family: 'Roboto';
         font-size: 25px;
+        font-weight: 700;
     }
 `
 
@@ -173,34 +170,31 @@ const ListProducts = styled.div`
 
 const Product = styled.div`
     background-color: #2a2a2a;
-
-    display: flex;
-
-    border-radius: 16px;
-    box-shadow: 0px 4px 5px 6px #00000026;
-
-    width: 100%;
     height: 150px;
-    padding: 12px;
-    gap: 8px;
-    
+    width: 88%;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+    margin-bottom: 10px;
     `
 
 const Image = styled.div`
     background-color: #333333;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    border-radius: 16px;
-    
-    width: 136px;
     height: 136px;
+    min-width: 136px;
+    width: 136px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-right: 8px;
     
     img{
-        width: 100px;
-        height: 100px;
+        max-height: 100%;
+        max-width: 100%;
     }
     `
 
@@ -208,40 +202,38 @@ const Infos = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    font-family: 'Roboto';
     
     h1{
-        color: #FFFFFF;
-        font-family: 'Roboto';
-        font-size: 18px;
+        color: white;
+        font-size: 16px;
         
         display: flex;
         flex-wrap: wrap;
+        padding-bottom: 14px;
     }
     
     h2{
-        color: #0F9C18;
-        font-family: 'Roboto';
-        font-size: 22px;
+        font-size: 24px;
+        font-weight: 700;
+        color: #009e2a;
+        padding-bottom: 14px;
+    }
+
+    button{
+        background-color: #008a9e;
+        color: #FFFFFF;
+        font-size: 12px;
+        font-weight: 700;
+
+        border: none;
+        border-radius: 5px;
         
         display: flex;
-
-    }
-    button{
-    background-color: #008a9e;
-    color: #FFFFFF;
-    font-family: 'Roboto';
-    font-size: 12px;
+        justify-content: center;
+        align-items: center;
     
-    border: none;
-    border-radius: 5px;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    width: 200px;
-    height: 20px;
-    
-    cursor: pointer;
+        width: 100%;
+        height: 20px;
     }
     `

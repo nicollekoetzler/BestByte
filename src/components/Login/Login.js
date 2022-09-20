@@ -23,7 +23,7 @@ export default function Login({setToken, token}) {
             password,
         }
 
-        const promise = axios.post('http://localhost:5000/sign-in', dados);
+        const promise = axios.post('https://back-bestbyte.herokuapp.com/sign-in', dados);
 
         promise.then((res) => {
             setToken(res.data.token);
@@ -69,12 +69,12 @@ export default function Login({setToken, token}) {
                                 />
                             </label>
                             <button>Entrar</button>
-                            <p onClick={() => navigate("/")}>Voltar para a tela inicial</p>
                         </form>
                         <p onClick={() => {
-                                setClicado(true);
-                            }}>Primeira vez aqui? Crie uma conta!</p>
+                            setClicado(true);
+                        }}>Primeira vez aqui? Crie uma conta!</p>
                     </CashierComponents>
+                        <h3 onClick={() => navigate("/")}>Voltar para a tela inicial</h3>
                 </PageaLoginComponents>
             );
         }
@@ -114,7 +114,6 @@ const PageaLoginComponents = styled.div`
     form {
         width: 85%;
         height: 80%;
-        margin: 5px 0;
 
         display: flex;
         flex-direction: column;
@@ -141,12 +140,24 @@ const PageaLoginComponents = styled.div`
         background-color: #0F9C18;
         border: 0;
         border-radius: 8px;
-        margin-bottom: 15px;
 
         color: white;
         font-family: 'Roboto';
         font-size: 16px;
         font-weight: 700;
+
+        cursor: pointer;
+    }
+
+    h3 {
+        color: white;
+        font-size: 12px;
+        margin-top: 20px;
+        font-weight: 700;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         cursor: pointer;
     }
